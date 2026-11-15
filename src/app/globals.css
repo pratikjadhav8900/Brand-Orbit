@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy: #10213d;
+  --color-navy-light: #16315a;
+  --color-ocean: #258bb8;
+  --color-teal: #35b6ad;
+  --color-ink: #0b1626;
+  --color-mist: #f4f7fa;
+
+  --font-heading: var(--font-jakarta), "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-inter), "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-wordmark: var(--font-baloo), "Baloo 2", ui-sans-serif, system-ui, sans-serif;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #ffffff;
+  color: var(--color-ink);
+  font-family: var(--font-body);
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+}
