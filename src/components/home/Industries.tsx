@@ -5,7 +5,7 @@ import { industries, industriesNotice } from "@/data/industries";
 
 export function Industries() {
   return (
-    <section className="bg-white py-24 sm:py-32">
+    <section className="bg-bg py-24 sm:py-32">
       <Container>
         <SectionHeading eyebrow="Industries We Serve" title="Built for Businesses in Motion." />
         <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -22,7 +22,7 @@ export function Industries() {
             </Reveal>
           ))}
         </div>
-        <p className="mt-10 text-sm text-ink/50">{industriesNotice}</p>
+        <p className="mt-10 text-sm text-white/50">{industriesNotice}</p>
       </Container>
     </section>
   );

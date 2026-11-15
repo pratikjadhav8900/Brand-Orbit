@@ -33,8 +33,8 @@ export function ContactForm() {
   if (active.status === "success") {
     return (
       <div className="rounded-2xl border border-teal/30 bg-teal/5 p-8 text-center">
-        <h3 className="text-lg font-bold text-navy">Thank you — message received.</h3>
-        <p className="mt-2 text-sm text-ink/70">
+        <h3 className="text-lg font-bold text-white">Thank you — message received.</h3>
+        <p className="mt-2 text-sm text-white/70">
           We&apos;ll get back to you shortly. In the meantime, feel free to reach us on
           WhatsApp using the button in the corner.
         </p>
@@ -44,7 +44,7 @@ export function ContactForm() {
 
   return (
     <div>
-      <div className="mb-8 inline-flex rounded-full bg-mist p-1">
+      <div className="mb-8 inline-flex rounded-full bg-surface p-1">
         {(["enquiry", "partnership"] as const).map((t) => (
           <button
             key={t}
@@ -52,7 +52,7 @@ export function ContactForm() {
             onClick={() => setType(t)}
             className={clsx(
               "rounded-full px-5 py-2 text-sm font-semibold transition-colors duration-300",
-              type === t ? "bg-navy text-white" : "text-navy/60 hover:text-navy"
+              type === t ? "bg-ocean text-white" : "text-white/60 hover:text-white"
             )}
           >
             {t === "enquiry" ? "Business Enquiry" : "Partnership"}
@@ -72,12 +72,12 @@ export function ContactForm() {
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
             <Field label="Company (optional)" name="company" required={false} />
             <div>
-              <label className="mb-2 block text-sm font-medium text-navy">
+              <label className="mb-2 block text-sm font-medium text-white">
                 Business Vertical
               </label>
               <select
                 name="vertical"
-                className="w-full rounded-lg border border-navy/15 bg-white px-4 py-3 text-sm text-navy focus:border-ocean focus:outline-none"
+                className="w-full rounded-lg border border-white/15 bg-surface px-4 py-3 text-sm text-white focus:border-ocean focus:outline-none"
               >
                 <option value="">Not sure / general enquiry</option>
                 {verticals.map((v) => (
@@ -92,13 +92,13 @@ export function ContactForm() {
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
             <Field label="Organisation (optional)" name="organisation" required={false} />
             <div>
-              <label className="mb-2 block text-sm font-medium text-navy">
+              <label className="mb-2 block text-sm font-medium text-white">
                 I am a...
               </label>
               <select
                 name="partnershipType"
                 required
-                className="w-full rounded-lg border border-navy/15 bg-white px-4 py-3 text-sm text-navy focus:border-ocean focus:outline-none"
+                className="w-full rounded-lg border border-white/15 bg-surface px-4 py-3 text-sm text-white focus:border-ocean focus:outline-none"
               >
                 <option value="">Select one</option>
                 <option value="Strategic Partner">Strategic Partner</option>
@@ -112,17 +112,17 @@ export function ContactForm() {
         )}
 
         <div>
-          <label className="mb-2 block text-sm font-medium text-navy">Message</label>
+          <label className="mb-2 block text-sm font-medium text-white">Message</label>
           <textarea
             name="message"
             required
             rows={5}
-            className="w-full rounded-lg border border-navy/15 bg-white px-4 py-3 text-sm text-navy focus:border-ocean focus:outline-none"
+            className="w-full rounded-lg border border-white/15 bg-surface px-4 py-3 text-sm text-white focus:border-ocean focus:outline-none"
           />
         </div>
 
         {active.status === "error" && (
-          <p className="text-sm text-red-600">{active.errorMessage}</p>
+          <p className="text-sm text-red-400">{active.errorMessage}</p>
         )}
 
         <button
@@ -150,12 +150,12 @@ function Field({
 }) {
   return (
     <div>
-      <label className="mb-2 block text-sm font-medium text-navy">{label}</label>
+      <label className="mb-2 block text-sm font-medium text-white">{label}</label>
       <input
         type={type}
         name={name}
         required={required}
-        className="w-full rounded-lg border border-navy/15 bg-white px-4 py-3 text-sm text-navy focus:border-ocean focus:outline-none"
+        className="w-full rounded-lg border border-white/15 bg-surface px-4 py-3 text-sm text-white focus:border-ocean focus:outline-none"
       />
     </div>
   );

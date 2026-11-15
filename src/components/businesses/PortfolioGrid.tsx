@@ -15,8 +15,8 @@ export function PortfolioGrid({ projects }: { projects: PortfolioProject[] }) {
 
   if (projects.length === 0) {
     return (
-      <div className="rounded-2xl border border-dashed border-navy/20 bg-white p-12 text-center">
-        <p className="text-base text-ink/60">
+      <div className="rounded-2xl border border-dashed border-white/20 bg-surface p-12 text-center">
+        <p className="text-base text-white/60">
           Project case studies are being finalised and will be published here shortly.
         </p>
       </div>
@@ -30,7 +30,7 @@ export function PortfolioGrid({ projects }: { projects: PortfolioProject[] }) {
           onClick={() => setFilter("all")}
           className={clsx(
             "rounded-full px-5 py-2 text-sm font-semibold transition-colors duration-300",
-            filter === "all" ? "bg-navy text-white" : "bg-mist text-navy hover:bg-navy/10"
+            filter === "all" ? "bg-ocean text-white" : "bg-surface text-white/70 hover:bg-white/10"
           )}
         >
           All Work
@@ -41,7 +41,7 @@ export function PortfolioGrid({ projects }: { projects: PortfolioProject[] }) {
             onClick={() => setFilter(v.slug)}
             className={clsx(
               "rounded-full px-5 py-2 text-sm font-semibold transition-colors duration-300",
-              filter === v.slug ? "bg-navy text-white" : "bg-mist text-navy hover:bg-navy/10"
+              filter === v.slug ? "bg-ocean text-white" : "bg-surface text-white/70 hover:bg-white/10"
             )}
           >
             {v.shortName}
@@ -51,9 +51,9 @@ export function PortfolioGrid({ projects }: { projects: PortfolioProject[] }) {
 
       <div className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
         {filtered.map((project) => (
-          <div key={project.slug} className="rounded-2xl border border-navy/10 bg-white p-6">
-            <h3 className="font-bold text-navy">{project.title}</h3>
-            <p className="mt-3 text-sm leading-relaxed text-ink/70">{project.summary}</p>
+          <div key={project.slug} className="rounded-2xl border border-white/10 bg-surface p-6">
+            <h3 className="font-bold text-white">{project.title}</h3>
+            <p className="mt-3 text-sm leading-relaxed text-white/70">{project.summary}</p>
           </div>
         ))}
       </div>

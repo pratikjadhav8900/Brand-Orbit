@@ -6,7 +6,6 @@ export const siteConfig = {
     "An integrated business ecosystem combining strategy, technology, creativity and expertise to build ventures and accelerate business growth.",
   url: "https://brandorbit.example", // TODO: replace with confirmed production domain
   founder: {
-    name: "Lalit Kumavat",
     title: "Founder",
   },
   contact: {

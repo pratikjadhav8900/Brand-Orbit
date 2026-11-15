@@ -32,7 +32,7 @@ export function Hero() {
           className="pointer-events-none absolute inset-0 opacity-40"
           style={{
             background:
-              "radial-gradient(60% 50% at 80% 10%, rgba(53,182,173,0.2) 0%, rgba(16,33,61,0) 70%)",
+              "radial-gradient(60% 50% at 80% 10%, rgba(59,130,246,0.18) 0%, rgba(10,11,13,0) 70%)",
           }}
           aria-hidden="true"
         />
@@ -98,7 +98,7 @@ export function Hero() {
         </Container>
       </section>
 
-      <section className="bg-white py-14">
+      <section className="bg-bg py-14">
         <Container className="grid grid-cols-1 gap-10 sm:grid-cols-3">
           {introPoints.map((point, i) => (
             <motion.a
@@ -114,8 +114,8 @@ export function Hero() {
                 {String(i + 1).padStart(2, "0")}
               </span>
               <div>
-                <h3 className="font-bold text-navy">{point.title}</h3>
-                <p className="mt-1 text-sm leading-relaxed text-ink/65">
+                <h3 className="font-bold text-white">{point.title}</h3>
+                <p className="mt-1 text-sm leading-relaxed text-white/65">
                   {point.description}
                 </p>
               </div>

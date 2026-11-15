@@ -17,7 +17,7 @@ export default function PortfolioPage() {
         title="Turning Ideas Into Impact."
         description="A growing collection of work across our verticals — filter by business to see projects relevant to your needs."
       />
-      <section className="bg-mist py-20 sm:py-28">
+      <section className="bg-surface py-20 sm:py-28">
         <Container>
           <PortfolioGrid projects={portfolioProjects} />
         </Container>

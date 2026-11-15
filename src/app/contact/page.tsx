@@ -20,7 +20,7 @@ export default function ContactPage() {
         description="Whether you're looking for the right expertise or exploring a partnership, tell us a bit about what you have in mind."
       />
 
-      <section className="bg-white py-20 sm:py-28">
+      <section className="bg-bg py-20 sm:py-28">
         <Container className="grid gap-16 lg:grid-cols-[1.3fr_0.7fr]">
           <Reveal>
             <Suspense fallback={null}>
@@ -29,27 +29,27 @@ export default function ContactPage() {
           </Reveal>
 
           <Reveal delay={0.1} className="space-y-6">
-            <div className="rounded-2xl border border-navy/10 bg-mist p-7">
+            <div className="rounded-2xl border border-white/10 bg-surface p-7">
               <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-ocean">
                 Email
               </h3>
-              <a href={`mailto:${siteConfig.contact.email}`} className="mt-3 block text-navy">
+              <a href={`mailto:${siteConfig.contact.email}`} className="mt-3 block text-white">
                 {siteConfig.contact.email}
               </a>
             </div>
-            <div className="rounded-2xl border border-navy/10 bg-mist p-7">
+            <div className="rounded-2xl border border-white/10 bg-surface p-7">
               <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-teal">
                 WhatsApp
               </h3>
-              <a href={whatsappHref} target="_blank" rel="noopener noreferrer" className="mt-3 block text-navy">
+              <a href={whatsappHref} target="_blank" rel="noopener noreferrer" className="mt-3 block text-white">
                 {siteConfig.contact.phoneDisplay}
               </a>
             </div>
-            <div className="rounded-2xl border border-navy/10 bg-mist p-7">
+            <div className="rounded-2xl border border-white/10 bg-surface p-7">
               <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-ocean">
                 Location
               </h3>
-              <p className="mt-3 text-navy">{siteConfig.contact.location}</p>
+              <p className="mt-3 text-white">{siteConfig.contact.location}</p>
             </div>
           </Reveal>
         </Container>

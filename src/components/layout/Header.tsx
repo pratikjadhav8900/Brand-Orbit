@@ -33,14 +33,14 @@ export function Header() {
   return (
     <header
       className={clsx(
-        "sticky top-0 z-40 w-full border-b border-navy/10 bg-white transition-shadow duration-300",
-        (scrolled || open) && "shadow-md shadow-black/5"
+        "sticky top-0 z-40 w-full border-b border-white/10 bg-bg transition-shadow duration-300",
+        (scrolled || open) && "shadow-md shadow-black/20"
       )}
     >
       <div className="mx-auto flex h-20 w-full max-w-7xl items-center justify-between px-6 md:px-10">
         <Link href="/" className="flex items-center" aria-label={siteConfig.name}>
           <Image
-            src="/brand/brandorbit-logo.png"
+            src="/brand/brandorbit-logo-dark.png"
             alt={siteConfig.name}
             width={361}
             height={228}
@@ -59,7 +59,7 @@ export function Header() {
                 aria-current={active ? "page" : undefined}
                 className={clsx(
                   "text-sm font-medium tracking-wide transition-colors duration-200",
-                  active ? "text-ocean" : "text-navy/75 hover:text-navy"
+                  active ? "text-ocean" : "text-white/75 hover:text-white"
                 )}
               >
                 {link.label}
@@ -86,16 +86,16 @@ export function Header() {
         >
           <span
             className={clsx(
-              "h-0.5 w-6 bg-navy transition-transform duration-300",
+              "h-0.5 w-6 bg-white transition-transform duration-300",
               open && "translate-y-2 rotate-45"
             )}
           />
           <span
-            className={clsx("h-0.5 w-6 bg-navy transition-opacity duration-300", open && "opacity-0")}
+            className={clsx("h-0.5 w-6 bg-white transition-opacity duration-300", open && "opacity-0")}
           />
           <span
             className={clsx(
-              "h-0.5 w-6 bg-navy transition-transform duration-300",
+              "h-0.5 w-6 bg-white transition-transform duration-300",
               open && "-translate-y-2 -rotate-45"
             )}
           />
@@ -104,7 +104,7 @@ export function Header() {
 
       <div
         className={clsx(
-          "fixed inset-0 top-20 z-40 flex flex-col bg-white transition-opacity duration-300 lg:hidden",
+          "fixed inset-0 top-20 z-40 flex flex-col bg-bg transition-opacity duration-300 lg:hidden",
           open ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
         )}
       >
@@ -118,7 +118,7 @@ export function Header() {
               href={link.href}
               style={{ transitionDelay: open ? `${i * 40}ms` : "0ms" }}
               className={clsx(
-                "border-b border-navy/10 py-4 text-2xl font-semibold text-navy transition-all duration-300",
+                "border-b border-white/10 py-4 text-2xl font-semibold text-white transition-all duration-300",
                 open ? "translate-x-0 opacity-100" : "translate-x-4 opacity-0"
               )}
             >

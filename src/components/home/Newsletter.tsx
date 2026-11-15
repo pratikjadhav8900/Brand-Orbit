@@ -14,7 +14,7 @@ export function Newsletter() {
   }
 
   return (
-    <section className="bg-mist py-20 sm:py-24">
+    <section className="bg-surface py-20 sm:py-24">
       <Container className="flex flex-col items-center gap-8 rounded-3xl bg-navy px-8 py-14 text-center sm:px-16">
         <Reveal>
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-teal">

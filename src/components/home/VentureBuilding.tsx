@@ -20,7 +20,7 @@ const pillars = [
 
 export function VentureBuilding() {
   return (
-    <section className="bg-white py-24 sm:py-32">
+    <section className="bg-bg py-24 sm:py-32">
       <Container>
         <div className="grid gap-16 lg:grid-cols-2 lg:items-center">
           <Reveal>
@@ -28,7 +28,7 @@ export function VentureBuilding() {
               eyebrow="Venture Building"
               title="Beyond Services. Building Ventures."
             />
-            <p className="mt-6 max-w-xl text-base leading-relaxed text-ink/70 sm:text-lg">
+            <p className="mt-6 max-w-xl text-base leading-relaxed text-white/70 sm:text-lg">
               Alongside our client services, BrandOrbit develops and grows its own
               ventures — applying the combined strength of our verticals to build new
               businesses from the ground up. Future ventures may operate as independent
@@ -46,14 +46,14 @@ export function VentureBuilding() {
               <Reveal
                 key={pillar.title}
                 delay={i * 0.08}
-                className="flex gap-5 rounded-2xl border border-navy/10 bg-mist p-6"
+                className="flex gap-5 rounded-2xl border border-white/10 bg-surface p-6"
               >
                 <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-navy text-sm font-bold text-teal">
                   {i + 1}
                 </span>
                 <div>
-                  <h3 className="font-bold text-navy">{pillar.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-ink/70">
+                  <h3 className="font-bold text-white">{pillar.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-white/70">
                     {pillar.description}
                   </p>
                 </div>

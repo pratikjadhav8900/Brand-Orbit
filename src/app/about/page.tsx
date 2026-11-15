@@ -20,24 +20,24 @@ export default function AboutPage() {
         description="BrandOrbit Group brings together specialised business divisions and a venture-building arm under one unified identity — serving businesses today and building new ones for tomorrow."
       />
 
-      <section className="bg-white py-20 sm:py-28">
+      <section className="bg-bg py-20 sm:py-28">
         <Container className="grid gap-16 lg:grid-cols-[1.1fr_0.9fr]">
           <Reveal>
-            <h2 className="text-2xl font-bold text-navy sm:text-3xl">Who We Are</h2>
-            <p className="mt-5 text-base leading-relaxed text-ink/70 sm:text-lg">
+            <h2 className="text-2xl font-bold text-white sm:text-3xl">Who We Are</h2>
+            <p className="mt-5 text-base leading-relaxed text-white/70 sm:text-lg">
               BrandOrbit Group is a newly starting, founder-led business group operating
               across six specialised verticals: marketing &amp; growth, technology &amp;
               AI, education, media &amp; creative, business consulting, and venture
               building. Each vertical is operational today, working with businesses as
               a specialised partner.
             </p>
-            <p className="mt-5 text-base leading-relaxed text-ink/70 sm:text-lg">
+            <p className="mt-5 text-base leading-relaxed text-white/70 sm:text-lg">
               BrandOrbit operates on two models: providing specialised services to
               businesses and organisations, and developing, building and growing its
               own ventures. We are not a single-service agency — we are a parent
               identity bringing multiple capabilities together under one roof.
             </p>
-            <p className="mt-5 text-base leading-relaxed text-ink/70 sm:text-lg">
+            <p className="mt-5 text-base leading-relaxed text-white/70 sm:text-lg">
               As a new group, we are building deliberately: strengthening each vertical,
               expanding our portfolio of work, and growing the leadership team around
               our founder over time.
@@ -45,21 +45,21 @@ export default function AboutPage() {
           </Reveal>
 
           <Reveal delay={0.1} className="space-y-6">
-            <div className="rounded-2xl border border-navy/10 bg-mist p-8">
+            <div className="rounded-2xl border border-white/10 bg-surface p-8">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ocean">
                 Mission
               </p>
-              <p className="mt-4 text-base leading-relaxed text-navy">
+              <p className="mt-4 text-base leading-relaxed text-white">
                 To give businesses and entrepreneurs access to the full range of
                 capability they need to grow — and to build new ventures that create
                 lasting value.
               </p>
             </div>
-            <div className="rounded-2xl border border-navy/10 bg-mist p-8">
+            <div className="rounded-2xl border border-white/10 bg-surface p-8">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-teal">
                 Vision
               </p>
-              <p className="mt-4 text-base leading-relaxed text-navy">
+              <p className="mt-4 text-base leading-relaxed text-white">
                 To grow BrandOrbit into a recognised ecosystem of business divisions and
                 independent ventures, each strengthened by the group around it.
               </p>
@@ -68,23 +68,19 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      <section className="bg-mist py-20 sm:py-28">
+      <section className="bg-surface py-20 sm:py-28">
         <Container>
           <Reveal className="mx-auto max-w-3xl text-center">
-            <h2 className="text-2xl font-bold text-navy sm:text-3xl">Leadership</h2>
-            <div className="mt-10 flex flex-col items-center gap-4 rounded-2xl bg-white p-10 shadow-sm">
+            <h2 className="text-2xl font-bold text-white sm:text-3xl">Leadership</h2>
+            <div className="mt-10 flex flex-col items-center gap-4 rounded-2xl border border-white/10 bg-surface-alt p-10">
               <div className="flex h-20 w-20 items-center justify-center rounded-full bg-navy text-2xl font-bold text-teal">
-                {siteConfig.founder.name
-                  .split(" ")
-                  .map((n) => n[0])
-                  .join("")}
+                F
               </div>
-              <h3 className="text-xl font-bold text-navy">{siteConfig.founder.name}</h3>
               <p className="text-sm font-semibold uppercase tracking-wider text-ocean">
                 {siteConfig.founder.title}
               </p>
-              <p className="max-w-xl text-sm leading-relaxed text-ink/65">
-                {siteConfig.founder.name} founded BrandOrbit Group to bring specialised
+              <p className="max-w-xl text-sm leading-relaxed text-white/65">
+                Our founder started BrandOrbit Group to bring specialised
                 business capabilities together under one identity, and to build ventures
                 that grow alongside the businesses BrandOrbit serves. Additional
                 leadership and team profiles will be introduced here as the group grows.

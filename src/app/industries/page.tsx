@@ -18,7 +18,7 @@ export default function IndustriesPage() {
         description="BrandOrbit works with businesses at different stages — from first-time founders to established teams looking to professionalise and grow."
       />
 
-      <section className="bg-white py-20 sm:py-28">
+      <section className="bg-bg py-20 sm:py-28">
         <Container>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {industries.map((industry, i) => (
@@ -34,7 +34,7 @@ export default function IndustriesPage() {
               </Reveal>
             ))}
           </div>
-          <p className="mt-10 text-sm text-ink/50">{industriesNotice}</p>
+          <p className="mt-10 text-sm text-white/50">{industriesNotice}</p>
         </Container>
       </section>
     </>

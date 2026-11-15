@@ -3,7 +3,6 @@ import { Container } from "@/components/shared/Container";
 import { Reveal } from "@/components/shared/Reveal";
 import { Button } from "@/components/shared/Button";
 import { Accordion } from "@/components/shared/Accordion";
-import { siteConfig } from "@/data/site";
 
 const accordionItems = [
   {
@@ -25,20 +24,20 @@ const accordionItems = [
 
 export function About() {
   return (
-    <section className="bg-white py-24 sm:py-32">
+    <section className="bg-bg py-24 sm:py-32">
       <Container>
         <div className="grid gap-16 lg:grid-cols-2 lg:gap-20">
           <Reveal>
             <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-ocean">
               About BrandOrbit
             </p>
-            <h2 className="text-3xl font-bold leading-tight tracking-tight text-navy sm:text-4xl">
+            <h2 className="text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl">
               One Group. Multiple Possibilities.
             </h2>
-            <p className="mt-5 max-w-xl text-base leading-relaxed text-ink/70">
-              Founded and led by {siteConfig.founder.name}, BrandOrbit brings
-              specialised business capabilities together under one identity — working
-              with businesses today, and building ventures of our own for tomorrow.
+            <p className="mt-5 max-w-xl text-base leading-relaxed text-white/70">
+              Founder-led, BrandOrbit brings specialised business capabilities
+              together under one identity — working with businesses today, and
+              building ventures of our own for tomorrow.
             </p>
 
             <div className="mt-8">

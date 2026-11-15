@@ -7,7 +7,7 @@ import { verticals } from "@/data/verticals";
 
 export function Capabilities() {
   return (
-    <section className="bg-mist py-24 sm:py-32">
+    <section className="bg-surface py-24 sm:py-32">
       <Container>
         <SectionHeading
           eyebrow="What We Can Do For You"
@@ -19,7 +19,7 @@ export function Capabilities() {
             <Reveal key={v.slug} delay={i * 0.05}>
               <Link
                 href={`/businesses/${v.slug}`}
-                className="group block overflow-hidden rounded-2xl bg-white"
+                className="group block overflow-hidden rounded-2xl bg-surface-alt"
               >
                 <div className="relative aspect-[4/3] overflow-hidden">
                   {v.cardImage && (
@@ -37,8 +37,8 @@ export function Capabilities() {
                   </span>
                 </div>
                 <div className="p-6">
-                  <h3 className="font-bold text-navy">{v.name}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-ink/65">{v.tagline}</p>
+                  <h3 className="font-bold text-white">{v.name}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-white/65">{v.tagline}</p>
                   <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-ocean">
                     Learn more
                     <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">

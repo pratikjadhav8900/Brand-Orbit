@@ -18,16 +18,16 @@ export default function CareersPage() {
         description="As a newly starting, founder-led group, we're building our team deliberately. If you'd like to work with us — as a team member, freelancer or collaborator — we'd like to hear from you."
       />
 
-      <section className="bg-white py-20 sm:py-28">
+      <section className="bg-bg py-20 sm:py-28">
         <Container className="grid gap-16 lg:grid-cols-[1.3fr_0.7fr]">
           <Reveal>
             <CareersForm />
           </Reveal>
-          <Reveal delay={0.1} className="rounded-2xl border border-navy/10 bg-mist p-7">
+          <Reveal delay={0.1} className="rounded-2xl border border-white/10 bg-surface p-7">
             <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-ocean">
               Open Roles
             </h3>
-            <p className="mt-3 text-sm leading-relaxed text-ink/70">
+            <p className="mt-3 text-sm leading-relaxed text-white/70">
               We don&apos;t have specific open roles listed yet, but we&apos;re always
               glad to hear from people interested in any of our six verticals —
               marketing, technology, education, media, consulting or venture building.

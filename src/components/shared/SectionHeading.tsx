@@ -34,20 +34,12 @@ export function SectionHeading({
         </p>
       )}
       <h2
-        className={clsx(
-          "text-3xl font-bold leading-tight tracking-tight sm:text-4xl md:text-5xl",
-          light ? "text-white" : "text-navy"
-        )}
+        className="text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl"
       >
         {title}
       </h2>
       {description && (
-        <p
-          className={clsx(
-            "mt-5 text-base leading-relaxed sm:text-lg",
-            light ? "text-white/70" : "text-ink/70"
-          )}
-        >
+        <p className="mt-5 text-base leading-relaxed text-white/70 sm:text-lg">
           {description}
         </p>
       )}

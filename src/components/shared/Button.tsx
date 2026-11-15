@@ -9,7 +9,7 @@ const variantClasses: Record<Variant, string> = {
   secondary:
     "border border-white/30 text-white hover:border-white hover:bg-white/10 transition-colors duration-300",
   ghost:
-    "border border-navy/20 text-navy hover:border-navy hover:bg-navy/5 transition-colors duration-300",
+    "border border-white/20 text-white hover:border-white/50 hover:bg-white/5 transition-colors duration-300",
 };
 
 export function Button({

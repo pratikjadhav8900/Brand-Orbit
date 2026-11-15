@@ -7,13 +7,13 @@ import { CopyrightYear } from "./CopyrightYear";
 
 export function Footer() {
   return (
-    <footer className="bg-ink text-white/70">
-      <div className="mx-auto w-full max-w-7xl px-6 py-16 md:px-10">
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-4">
-          <div className="md:col-span-1">
+    <footer className="border-t border-white/10 bg-surface text-white/70">
+      <div className="mx-auto w-full max-w-7xl px-6 py-14 md:px-10 md:py-16">
+        <div className="grid grid-cols-1 gap-x-10 gap-y-10 sm:grid-cols-2 md:grid-cols-4 md:gap-12">
+          <div className="sm:col-span-2 md:col-span-1">
             <div className="flex items-center gap-3">
               <Image
-                src="/brand/brandorbit-icon.png"
+                src="/brand/brandorbit-icon-dark.png"
                 alt=""
                 width={178}
                 height={146}
