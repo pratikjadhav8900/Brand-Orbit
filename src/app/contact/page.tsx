@@ -1,0 +1,59 @@
+import type { Metadata } from "next";
+import { Suspense } from "react";
+import { PageHero } from "@/components/shared/PageHero";
+import { Container } from "@/components/shared/Container";
+import { Reveal } from "@/components/shared/Reveal";
+import { ContactForm } from "@/components/shared/ContactForm";
+import { siteConfig, whatsappHref } from "@/data/site";
+
+export const metadata: Metadata = {
+  title: "Contact Us",
+  description: "Get in touch with BrandOrbit Group for business enquiries or partnerships.",
+};
+
+export default function ContactPage() {
+  return (
+    <>
+      <PageHero
+        eyebrow="Contact Us"
+        title="Let's Start a Conversation."
+        description="Whether you're looking for the right expertise or exploring a partnership, tell us a bit about what you have in mind."
+      />
+
+      <section className="bg-white py-20 sm:py-28">
+        <Container className="grid gap-16 lg:grid-cols-[1.3fr_0.7fr]">
+          <Reveal>
+            <Suspense fallback={null}>
+              <ContactForm />
+            </Suspense>
+          </Reveal>
+
+          <Reveal delay={0.1} className="space-y-6">
+            <div className="rounded-2xl border border-navy/10 bg-mist p-7">
+              <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-ocean">
+                Email
+              </h3>
+              <a href={`mailto:${siteConfig.contact.email}`} className="mt-3 block text-navy">
+                {siteConfig.contact.email}
+              </a>
+            </div>
+            <div className="rounded-2xl border border-navy/10 bg-mist p-7">
+              <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-teal">
+                WhatsApp
+              </h3>
+              <a href={whatsappHref} target="_blank" rel="noopener noreferrer" className="mt-3 block text-navy">
+                {siteConfig.contact.phoneDisplay}
+              </a>
+            </div>
+            <div className="rounded-2xl border border-navy/10 bg-mist p-7">
+              <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-ocean">
+                Location
+              </h3>
+              <p className="mt-3 text-navy">{siteConfig.contact.location}</p>
+            </div>
+          </Reveal>
+        </Container>
+      </section>
+    </>
+  );
+}

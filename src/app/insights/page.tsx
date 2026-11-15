@@ -1,0 +1,42 @@
+import type { Metadata } from "next";
+import { PageHero } from "@/components/shared/PageHero";
+import { Container } from "@/components/shared/Container";
+import { Reveal } from "@/components/shared/Reveal";
+import { insightArticles } from "@/data/insights";
+
+export const metadata: Metadata = {
+  title: "Insights",
+  description: "Ideas on business, technology, AI, marketing and entrepreneurship from BrandOrbit Group.",
+};
+
+export default function InsightsPage() {
+  return (
+    <>
+      <PageHero
+        eyebrow="Insights"
+        title="Ideas on Growth, Technology & Business."
+        description="Articles and perspectives from across BrandOrbit's verticals — published here as they're ready."
+      />
+      <section className="bg-white py-20 sm:py-28">
+        <Container>
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+            {insightArticles.map((article, i) => (
+              <Reveal key={article.slug} delay={i * 0.06} className="rounded-2xl border border-navy/10 bg-mist p-7">
+                {article.status === "unpublished" && (
+                  <span className="inline-block rounded-full bg-navy/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-wider text-navy/60">
+                    Unpublished draft
+                  </span>
+                )}
+                <p className="mt-4 text-xs font-semibold uppercase tracking-wider text-ocean">
+                  {article.category}
+                </p>
+                <h2 className="mt-2 text-lg font-bold leading-snug text-navy">{article.title}</h2>
+                <p className="mt-3 text-sm leading-relaxed text-ink/65">{article.excerpt}</p>
+              </Reveal>
+            ))}
+          </div>
+        </Container>
+      </section>
+    </>
+  );
+}
