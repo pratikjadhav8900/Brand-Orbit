@@ -7,7 +7,7 @@ export const siteConfig = {
   url: "https://brandorbitgroup.in",
   leadership: [
     { name: "Lalit Kumawat", role: "Founder" },
-    { name: "Jitendra Kumar Kumawat", role: "Founder & Advisor" },
+    { name: "Jitendra Kumar Kumawat", role: "Advisor & Investor" },
   ],
   contact: {
     email: "hello@brandorbitgroup.in",
