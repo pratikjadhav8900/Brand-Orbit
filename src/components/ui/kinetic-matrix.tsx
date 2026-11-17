@@ -62,17 +62,18 @@ function drawLatticeLink(
     const dx = n1.x - n2.x;
     const dy = n1.y - n2.y;
     const dist = Math.sqrt(dx * dx + dy * dy);
-    const stretch = Math.abs(dist - restLen) / restLen;
-    const isTensioned = n1.tension > 0.05 || n2.tension > 0.05 || stretch > 0.1;
+    const stretch = Math.min(1.2, Math.abs(dist - restLen) / restLen);
+    const isTensioned = n1.tension > 0.05 || n2.tension > 0.05 || stretch > 0.08;
 
     if (isTensioned) {
-        const glow = Math.max(n1.tension, n2.tension, stretch * 2);
+        const glow = Math.min(1, Math.max(n1.tension, n2.tension, stretch));
         ctx.strokeStyle = isDark
-            ? `rgba(255, 255, 255, ${Math.min(1, 0.25 + glow * 0.75)})`
-            : `rgba(0, 0, 0, ${Math.min(1, 0.25 + glow * 0.75)})`;
-        ctx.lineWidth = 0.8 + glow * 1.4;
+            ? `rgba(255, 255, 255, ${Math.min(0.95, 0.25 + glow * 0.7)})`
+            : `rgba(0, 0, 0, ${Math.min(0.95, 0.25 + glow * 0.7)})`;
+        // Strictly capped line width so it never blooms into thick slabs
+        ctx.lineWidth = Math.min(2.0, 0.7 + glow * 1.3);
     } else {
-        ctx.strokeStyle = `rgba(${nodeColor}, ${isDark ? 0.08 : 0.05})`;
+        ctx.strokeStyle = `rgba(${nodeColor}, ${isDark ? 0.09 : 0.06})`;
         ctx.lineWidth = 0.65;
     }
 
@@ -92,7 +93,7 @@ export function KineticMatrix({
 
     const isDarkMode = useSyncExternalStore(subscribeColorScheme, getColorScheme, () => true);
 
-    // Pointer state with smooth inertia
+    // Pointer state with smooth inertia (mouse or touch)
     const pointerRef = useRef({
         x: -2000,
         y: -2000,
@@ -100,18 +101,8 @@ export function KineticMatrix({
         prevY: -2000,
         vx: 0,
         vy: 0,
-        radius: 220,
+        radius: 200,
         isDown: false,
-        lastInteractionTime: 0,
-    });
-
-    // Scroll & virtual movement state (for mobile and scroll-over effects)
-    const scrollEffectRef = useRef({
-        lastScrollY: 0,
-        scrollVelocity: 0,
-        virtualX: 0,
-        virtualY: 0,
-        isInView: false,
     });
 
     const nodesRef = useRef<MatrixNode[]>([]);
@@ -181,58 +172,6 @@ export function KineticMatrix({
         return () => resizeObserver.disconnect();
     }, [buildLattice]);
 
-    // Window scroll tracking to drive dynamic distortion when scrolling over/near the component
-    useEffect(() => {
-        let lastY = window.scrollY;
-
-        const onScroll = () => {
-            const container = containerRef.current;
-            if (!container) return;
-
-            const rect = container.getBoundingClientRect();
-            const viewH = window.innerHeight;
-
-            // Check if visible
-            const visible = rect.bottom > 0 && rect.top < viewH;
-            scrollEffectRef.current.isInView = visible;
-
-            const currentY = window.scrollY;
-            const deltaY = currentY - lastY;
-            lastY = currentY;
-
-            if (visible) {
-                const clampedDelta = Math.max(-60, Math.min(60, deltaY));
-                scrollEffectRef.current.scrollVelocity += clampedDelta * 0.45;
-
-                // Progress of component entering/exiting the viewport (0 at bottom, 1 at top)
-                const totalDist = viewH + rect.height;
-                const progress = Math.max(0, Math.min(1, (viewH - rect.top) / totalDist));
-
-                // Position virtual warp center across the grid based on scroll position
-                const targetVirtualX = rect.width * (0.5 + 0.28 * Math.sin(progress * Math.PI * 2.5));
-                const targetVirtualY = rect.height * (0.2 + progress * 0.6);
-
-                scrollEffectRef.current.virtualX = targetVirtualX;
-                scrollEffectRef.current.virtualY = targetVirtualY;
-
-                // On fast scroll, trigger a shockwave to accentuate the kinetic response
-                if (Math.abs(deltaY) > 28 && shockwavesRef.current.length < 3) {
-                    shockwavesRef.current.push({
-                        x: targetVirtualX,
-                        y: targetVirtualY,
-                        radius: 12,
-                        maxRadius: Math.min(rect.width * 0.8, 380),
-                        power: Math.min(1.4, Math.abs(deltaY) * 0.02),
-                    });
-                }
-            }
-        };
-
-        window.addEventListener('scroll', onScroll, { passive: true });
-        onScroll();
-        return () => window.removeEventListener('scroll', onScroll);
-    }, []);
-
     // Main High-Performance Simulation & Rendering Loop
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -253,46 +192,16 @@ export function KineticMatrix({
             const pulses = pulsesRef.current;
             const shockwaves = shockwavesRef.current;
             const pointer = pointerRef.current;
-            const scrollEffect = scrollEffectRef.current;
 
-            // Decay scroll velocity smoothly
-            scrollEffect.scrollVelocity *= Math.pow(0.85, dt * 60);
+            // Pointer velocity interpolation
+            pointer.vx = (pointer.x - pointer.prevX) / (dt * 1000 || 1);
+            pointer.vy = (pointer.y - pointer.prevY) / (dt * 1000 || 1);
+            pointer.prevX = pointer.x;
+            pointer.prevY = pointer.y;
+            const mouseSpeed = Math.min(600, Math.sqrt(pointer.vx * pointer.vx + pointer.vy * pointer.vy));
 
-            // Determine active focal point: direct touch/mouse vs scroll/ambient
-            const hasDirectInput = pointer.x > -1000 && (now - pointer.lastInteractionTime < 600);
-
-            let focalX = pointer.x;
-            let focalY = pointer.y;
-            let focalRadius = Math.max(160, Math.min(240, width * 0.45));
-            let focalForceMultiplier = 1;
-            let showFocalHud = false;
-
-            if (hasDirectInput) {
-                // Direct user touch / mouse
-                pointer.vx = (pointer.x - pointer.prevX) / (dt * 1000 || 1);
-                pointer.vy = (pointer.y - pointer.prevY) / (dt * 1000 || 1);
-                pointer.prevX = pointer.x;
-                pointer.prevY = pointer.y;
-                focalForceMultiplier = 1 + (pointer.isDown ? 1.4 : 0);
-                showFocalHud = true;
-            } else if (scrollEffect.isInView && width > 0 && height > 0) {
-                // Scroll-induced or ambient mobile drift
-                const ambientWaveX = Math.sin(now * 0.0014) * (width * 0.22);
-                const ambientWaveY = Math.cos(now * 0.0019) * (height * 0.18);
-
-                focalX = (scrollEffect.virtualX || width * 0.5) + ambientWaveX;
-                focalY = (scrollEffect.virtualY || height * 0.5) + ambientWaveY;
-
-                // Scroll velocity elevates force
-                const scrollSpeed = Math.abs(scrollEffect.scrollVelocity);
-                focalForceMultiplier = 0.85 + Math.min(1.8, scrollSpeed * 0.08);
-                focalRadius = Math.max(170, Math.min(260, width * 0.48));
-                showFocalHud = true;
-            }
-
-            const mouseSpeed = hasDirectInput
-                ? Math.sqrt(pointer.vx * pointer.vx + pointer.vy * pointer.vy)
-                : Math.abs(scrollEffect.scrollVelocity) * 12;
+            // Adapt pointer radius dynamically to container width
+            pointer.radius = width > 0 ? Math.max(140, Math.min(210, width * 0.44)) : 200;
 
             const isDark = document.documentElement.classList.contains('dark') || isDarkMode;
             const bgColor = isDark ? '#06070a' : '#f9fafb';
@@ -302,51 +211,43 @@ export function KineticMatrix({
             ctx.fillStyle = bgColor;
             ctx.fillRect(0, 0, width, height);
 
-            // 1. Propagate Shockwaves
+            // 1. Propagate Shockwaves (calm, capped speed)
             for (let s = shockwaves.length - 1; s >= 0; s--) {
                 const sw = shockwaves[s];
-                sw.radius += 420 * dt;
-                sw.power *= Math.pow(0.12, dt);
+                sw.radius += 320 * dt;
+                sw.power *= Math.pow(0.15, dt);
                 if (sw.radius > sw.maxRadius || sw.power < 0.01) {
                     shockwaves.splice(s, 1);
                 }
             }
 
-            // 2. Physics Step (Hooke's Spring-Mass Lattice)
-            const SPRING_K = 26;
+            // 2. Stable Physics Step (Hooke's Spring-Mass Lattice with displacement clamping)
+            const SPRING_K = 22;
             const DAMPING = 0.86;
-            const scrollVel = scrollEffect.scrollVelocity;
+            const maxDisplacement = spacing * 0.72; // strictly prevents nodes from overlapping or flying away
 
             for (let i = 0; i < nodes.length; i++) {
                 const n = nodes[i];
-                n.pulsePhase += dt * 3.2;
+                n.pulsePhase += dt * 2.2;
 
-                // Focal Point Repulsion (mouse, touch, or scroll wave)
-                if (focalX > -1000) {
-                    const dx = focalX - n.x;
-                    const dy = focalY - n.y;
+                // Pointer repulsion (only when pointer is inside container)
+                if (pointer.x > -1000) {
+                    const dx = pointer.x - n.x;
+                    const dy = pointer.y - n.y;
                     const dist = Math.sqrt(dx * dx + dy * dy);
 
-                    if (dist < focalRadius && dist > 0) {
-                        const ratio = 1 - dist / focalRadius;
-                        const force = ratio * (1500 + mouseSpeed * 160) * focalForceMultiplier;
+                    if (dist < pointer.radius && dist > 0) {
+                        const ratio = 1 - dist / pointer.radius;
+                        const force = ratio * (950 + mouseSpeed * 0.45 + (pointer.isDown ? 1100 : 0));
                         const angle = Math.atan2(dy, dx);
 
                         n.vx -= Math.cos(angle) * force * dt;
                         n.vy -= Math.sin(angle) * force * dt;
-                        n.tension = Math.min(1, n.tension + ratio * 0.45);
+                        n.tension = Math.min(1, n.tension + ratio * 0.4);
                     }
                 }
 
-                // Scroll inertial wave across lattice
-                if (Math.abs(scrollVel) > 0.4) {
-                    const wavePhase = Math.sin(n.col * 0.5 + now * 0.003);
-                    n.vy -= scrollVel * 0.42 * (1 + wavePhase * 0.35);
-                    n.vx += wavePhase * scrollVel * 0.18;
-                    n.tension = Math.min(1, n.tension + Math.abs(scrollVel) * 0.012);
-                }
-
-                // Shockwave forces
+                // Shockwave repulsion
                 for (let s = 0; s < shockwaves.length; s++) {
                     const sw = shockwaves[s];
                     const swDx = n.x - sw.x;
@@ -354,31 +255,34 @@ export function KineticMatrix({
                     const swDist = Math.sqrt(swDx * swDx + swDy * swDy);
                     const delta = Math.abs(swDist - sw.radius);
 
-                    if (delta < 55) {
-                        const force = (1 - delta / 55) * sw.power * 2800;
+                    if (delta < 45) {
+                        const force = (1 - delta / 45) * sw.power * 1000;
                         const angle = Math.atan2(swDy, swDx);
                         n.vx += Math.cos(angle) * force * dt;
                         n.vy += Math.sin(angle) * force * dt;
-                        n.tension = 1.0;
+                        n.tension = Math.min(1, n.tension + 0.5);
                     }
                 }
 
-                // Spring restore
+                // Spring force back to rest position
                 const hx = n.baseX - n.x;
                 const hy = n.baseY - n.y;
                 n.vx += hx * SPRING_K * dt;
                 n.vy += hy * SPRING_K * dt;
 
-                n.vx *= DAMPING;
-                n.vy *= DAMPING;
-                n.x += n.vx * dt * 60;
-                n.y += n.vy * dt * 60;
+                // Clamp velocities to guarantee stability
+                n.vx = Math.max(-14, Math.min(14, n.vx * DAMPING));
+                n.vy = Math.max(-14, Math.min(14, n.vy * DAMPING));
+
+                // Position update with absolute displacement bounds
+                n.x = Math.max(n.baseX - maxDisplacement, Math.min(n.baseX + maxDisplacement, n.x + n.vx * dt * 60));
+                n.y = Math.max(n.baseY - maxDisplacement, Math.min(n.baseY + maxDisplacement, n.y + n.vy * dt * 60));
 
                 n.tension = Math.max(0, n.tension - dt * 0.9);
             }
 
-            // 3. Spawn Random Synaptic Traveling Pulses
-            if (Math.random() < 0.32 && nodes.length > 0 && pulses.length < 40) {
+            // 3. Gentle Synaptic Traveling Pulses
+            if (Math.random() < 0.25 && nodes.length > 0 && pulses.length < 30) {
                 const fromIdx = Math.floor(Math.random() * nodes.length);
                 const fromNode = nodes[fromIdx];
                 const possibleDirections = [
@@ -398,7 +302,7 @@ export function KineticMatrix({
                             fromNode: fromIdx,
                             toNode: toIdx,
                             progress: 0,
-                            speed: 1.6 + Math.random() * 2.2,
+                            speed: 1.4 + Math.random() * 1.6,
                         });
                     }
                 }
@@ -434,7 +338,7 @@ export function KineticMatrix({
                 const n2 = nodes[pulse.toNode];
 
                 if (!n1 || !n2 || pulse.progress >= 1) {
-                    if (n2) n2.tension = Math.min(1, n2.tension + 0.35);
+                    if (n2) n2.tension = Math.min(1, n2.tension + 0.3);
                     pulses.splice(p, 1);
                     continue;
                 }
@@ -444,26 +348,26 @@ export function KineticMatrix({
 
                 ctx.fillStyle = isDark ? '#ffffff' : '#000000';
                 ctx.beginPath();
-                ctx.arc(px, py, 2.0, 0, Math.PI * 2);
+                ctx.arc(px, py, 1.8, 0, Math.PI * 2);
                 ctx.fill();
             }
 
             // 6. Render Nodes & HUD Elements
             for (let i = 0; i < nodes.length; i++) {
                 const n = nodes[i];
-                const dx = focalX - n.x;
-                const dy = focalY - n.y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-                const isNear = dist < focalRadius;
+                const dx = pointer.x - n.x;
+                const dy = pointer.y - n.y;
+                const dist = pointer.x > -1000 ? Math.sqrt(dx * dx + dy * dy) : 9999;
+                const isNear = dist < pointer.radius;
 
                 const currentRadius = isNear
-                    ? n.radius * 2.2 + n.tension * 1.5
-                    : n.radius + Math.sin(n.pulsePhase) * 0.25;
+                    ? n.radius * 2.0 + n.tension * 1.3
+                    : n.radius + Math.sin(n.pulsePhase) * 0.2;
 
                 if (isNear || n.tension > 0.1) {
-                    ctx.fillStyle = `rgba(${accentGlow}, ${Math.min(1, 0.25 + n.tension * 0.65)})`;
+                    ctx.fillStyle = `rgba(${accentGlow}, ${Math.min(0.9, 0.25 + n.tension * 0.65)})`;
                     ctx.beginPath();
-                    ctx.arc(n.x, n.y, currentRadius * 2.2, 0, Math.PI * 2);
+                    ctx.arc(n.x, n.y, currentRadius * 2.0, 0, Math.PI * 2);
                     ctx.fill();
                 }
 
@@ -475,9 +379,9 @@ export function KineticMatrix({
                 ctx.arc(n.x, n.y, Math.max(0.8, currentRadius), 0, Math.PI * 2);
                 ctx.fill();
 
-                if (showFocalHud && dist < 95) {
-                    const radarRing = ((n.pulsePhase * 20) % 32) + 4;
-                    const ringAlpha = (1 - radarRing / 36) * 0.38;
+                if (dist < 88) {
+                    const radarRing = ((n.pulsePhase * 18) % 30) + 4;
+                    const ringAlpha = (1 - radarRing / 34) * 0.35;
 
                     ctx.strokeStyle = `rgba(${accentGlow}, ${ringAlpha})`;
                     ctx.lineWidth = 1;
@@ -498,7 +402,7 @@ export function KineticMatrix({
         return () => cancelAnimationFrame(animId);
     }, [isDarkMode]);
 
-    // Mouse Event Handlers
+    // Mouse handlers
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
         const container = containerRef.current;
         if (!container) return;
@@ -506,7 +410,6 @@ export function KineticMatrix({
         const rect = container.getBoundingClientRect();
         pointerRef.current.x = e.clientX - rect.left;
         pointerRef.current.y = e.clientY - rect.top;
-        pointerRef.current.lastInteractionTime = performance.now();
     };
 
     const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -517,22 +420,18 @@ export function KineticMatrix({
         const rect = container.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
-        pointerRef.current.x = x;
-        pointerRef.current.y = y;
-        pointerRef.current.lastInteractionTime = performance.now();
 
         shockwavesRef.current.push({
             x,
             y,
-            radius: 8,
-            maxRadius: 420,
-            power: 1.2,
+            radius: 6,
+            maxRadius: 360,
+            power: 1.0,
         });
     };
 
     const handleMouseUp = () => {
         pointerRef.current.isDown = false;
-        pointerRef.current.lastInteractionTime = performance.now();
     };
 
     const handleMouseLeave = () => {
@@ -541,7 +440,7 @@ export function KineticMatrix({
         pointerRef.current.isDown = false;
     };
 
-    // Touch Event Handlers (allows smooth scrolling while actively distorting the lattice)
+    // Touch handlers (reacts smoothly to touch on mobile without hijacking vertical scroll)
     const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
         const container = containerRef.current;
         if (!container || !e.touches[0]) return;
@@ -556,14 +455,13 @@ export function KineticMatrix({
         pointerRef.current.y = y;
         pointerRef.current.prevX = x;
         pointerRef.current.prevY = y;
-        pointerRef.current.lastInteractionTime = performance.now();
 
         shockwavesRef.current.push({
             x,
             y,
-            radius: 8,
-            maxRadius: Math.min(rect.width * 0.9, 380),
-            power: 1.3,
+            radius: 6,
+            maxRadius: Math.min(rect.width * 0.7, 280),
+            power: 0.9,
         });
     };
 
@@ -575,18 +473,12 @@ export function KineticMatrix({
         const touch = e.touches[0];
         pointerRef.current.x = touch.clientX - rect.left;
         pointerRef.current.y = touch.clientY - rect.top;
-        pointerRef.current.lastInteractionTime = performance.now();
     };
 
     const handleTouchEnd = () => {
         pointerRef.current.isDown = false;
-        pointerRef.current.lastInteractionTime = performance.now();
-        setTimeout(() => {
-            if (!pointerRef.current.isDown && performance.now() - pointerRef.current.lastInteractionTime >= 250) {
-                pointerRef.current.x = -2000;
-                pointerRef.current.y = -2000;
-            }
-        }, 300);
+        pointerRef.current.x = -2000;
+        pointerRef.current.y = -2000;
     };
 
     return (
