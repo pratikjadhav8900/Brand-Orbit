@@ -64,11 +64,11 @@ export default function MetroHero({
     let targetProgress = 0
     let currentProgress = 0
     let hasStartedScrolling = false
-    let isSeeking = false
-    let pendingTime: number | null = null
     let locked = false
     let lockedScrollY = 0
     let touchStartY = 0
+    /** Max progress jump per wheel event — prevents fast-scroll from skipping the whole video. */
+    const MAX_DELTA = 0.06
 
     const onLoadedData = () => {
       duration = video.duration || 0
@@ -93,26 +93,6 @@ export default function MetroHero({
       }
     }
     kickstartLoad()
-
-    const onSeeked = () => {
-      isSeeking = false
-      if (pendingTime !== null) {
-        const t = pendingTime
-        pendingTime = null
-        isSeeking = true
-        video.currentTime = t
-      }
-    }
-    video.addEventListener("seeked", onSeeked)
-
-    function seekTo(t: number) {
-      if (isSeeking) {
-        pendingTime = t
-        return
-      }
-      isSeeking = true
-      video!.currentTime = t
-    }
 
     function engageLock() {
       if (locked) return
@@ -155,11 +135,15 @@ export default function MetroHero({
           return false
         }
       }
-      if (deltaY > 0 && targetProgress >= 1) {
+      // Gate release on what the user has *actually seen*, not where target is headed.
+      // This prevents fast scrolling from skipping past the video.
+      if (deltaY > 0 && currentProgress >= 0.97) {
         releaseLock()
         return false
       }
-      targetProgress = clamp(targetProgress + deltaY / scrubDistance, 0, 1)
+      // Cap per-event delta so fast flicks can't jump targetProgress to 1 instantly.
+      const cappedDelta = clamp(deltaY / scrubDistance, -MAX_DELTA, MAX_DELTA)
+      targetProgress = clamp(targetProgress + cappedDelta, 0, 1)
       if (targetProgress > 0.001) hasStartedScrolling = true
       return true
     }
@@ -195,10 +179,18 @@ export default function MetroHero({
     }
 
     function frame() {
-      currentProgress += (targetProgress - currentProgress) * 0.18
+      // Faster lerp (0.28) for snappier response; reduces perceived lag.
+      currentProgress += (targetProgress - currentProgress) * 0.28
 
+      // Snap to target when very close to avoid endless micro-seeking.
+      if (Math.abs(targetProgress - currentProgress) < 0.001) {
+        currentProgress = targetProgress
+      }
+
+      // Set video time directly — no seek queue. Modern browsers handle rapid
+      // currentTime writes fine and this avoids the jank from queued seeks.
       if (duration > 0) {
-        seekTo(currentProgress * duration)
+        video!.currentTime = currentProgress * duration
       }
 
       if (videoRef.current) {
@@ -234,7 +226,6 @@ export default function MetroHero({
     return () => {
       video.removeEventListener("loadeddata", onLoadedData)
       video.removeEventListener("canplay", onLoadedData)
-      video.removeEventListener("seeked", onSeeked)
       window.removeEventListener("wheel", onWheel)
       window.removeEventListener("touchstart", onTouchStart)
       window.removeEventListener("touchmove", onTouchMove)
