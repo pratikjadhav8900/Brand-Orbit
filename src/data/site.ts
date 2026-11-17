@@ -4,19 +4,19 @@ export const siteConfig = {
   tagline: "Building Businesses. Creating Growth. Shaping Opportunities.",
   description:
     "An integrated business ecosystem combining strategy, technology, creativity and expertise to build ventures and accelerate business growth.",
-  url: "https://brandorbit.example", // TODO: replace with confirmed production domain
+  url: "https://brandorbitgroup.in",
   leadership: [
     { name: "Lalit Kumawat", role: "Founder" },
     { name: "Jitendra Kumar Kumawat", role: "Founder & Advisor" },
   ],
   contact: {
-    email: "hello@brandorbit.example", // TODO: confirm business email
+    email: "hello@brandorbitgroup.in",
     phoneDisplay: "+91 86966 40524",
     whatsapp: {
       number: "918696640524", // international format, no symbols, used for wa.me links
       message: "Hi BrandOrbit Group, I'd like to know more about your services.",
     },
-    location: "India", // TODO: confirm city/state for full address
+    location: "Jaipur, Rajasthan (India)",
   },
   legal: {
     entityName: null as string | null, // TODO: confirm registered legal entity name
