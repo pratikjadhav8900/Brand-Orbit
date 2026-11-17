@@ -23,7 +23,7 @@ export function Insights() {
                   Unpublished draft
                 </span>
               )}
-              <p className="mt-4 text-xs font-semibold uppercase tracking-wider text-ocean">
+              <p className="mt-4 text-xs font-semibold uppercase tracking-wider text-teal">
                 {article.category}
               </p>
               <h3 className="mt-2 text-lg font-bold leading-snug text-white">

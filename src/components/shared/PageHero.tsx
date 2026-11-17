@@ -12,10 +12,10 @@ export function PageHero({
   return (
     <section className="bg-navy pb-16 pt-14 sm:pb-20 sm:pt-16">
       <Container>
-        <p className="mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-teal">
+        <p className="mb-4 font-mono text-xs font-semibold uppercase tracking-[0.25em] text-teal">
           {eyebrow}
         </p>
-        <h1 className="max-w-3xl text-4xl font-bold leading-[1.1] tracking-tight text-white sm:text-5xl">
+        <h1 className="max-w-3xl text-3xl font-bold leading-[1.15] text-white sm:text-4xl">
           {title}
         </h1>
         {description && (

@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { Button } from "@/components/shared/Button";
 import { Container } from "@/components/shared/Container";
+import { KineticMatrix } from "@/components/ui/kinetic-matrix";
 import { siteConfig } from "@/data/site";
 
 const introPoints = [
@@ -32,7 +32,7 @@ export function Hero() {
           className="pointer-events-none absolute inset-0 opacity-40"
           style={{
             background:
-              "radial-gradient(60% 50% at 80% 10%, rgba(59,130,246,0.18) 0%, rgba(10,11,13,0) 70%)",
+              "radial-gradient(60% 50% at 80% 10%, rgba(37,82,252,0.22) 0%, rgba(12,12,14,0) 70%)",
           }}
           aria-hidden="true"
         />
@@ -42,20 +42,20 @@ export function Hero() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="mb-6 text-xs font-semibold uppercase tracking-[0.25em] text-teal"
+              className="mb-6 font-mono text-xs font-semibold uppercase tracking-[0.25em] text-teal"
             >
               {siteConfig.name}
             </motion.p>
-            <motion.h1
+            <motion.h2
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.1 }}
-              className="text-4xl font-bold leading-[1.1] tracking-tight text-white sm:text-5xl md:text-6xl"
+              className="text-3xl font-bold leading-[1.15] text-white sm:text-4xl md:text-5xl"
             >
               Building Businesses.
               <br />
               Creating What&apos;s Next.
-            </motion.h1>
+            </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
@@ -83,17 +83,13 @@ export function Hero() {
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl"
+            className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl border border-white/10"
           >
-            <Image
-              src="/images/hero-team-collaboration.jpg"
-              alt="BrandOrbit team collaborating"
-              fill
-              priority
-              sizes="(min-width: 1024px) 45vw, 90vw"
-              className="object-cover"
+            <KineticMatrix
+              title="BRANDORBIT"
+              className="@container absolute inset-0 rounded-3xl"
+              titleClassName="text-[length:clamp(1.75rem,11cqw,5rem)] leading-none sm:text-[length:clamp(1.75rem,11cqw,5rem)] md:text-[length:clamp(1.75rem,11cqw,5rem)]"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-navy/50 via-transparent to-transparent" />
           </motion.div>
         </Container>
       </section>
@@ -110,7 +106,7 @@ export function Hero() {
               transition={{ duration: 0.5, delay: i * 0.08 }}
               className="group flex gap-4"
             >
-              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-ocean/30 text-sm font-bold text-ocean transition-colors duration-300 group-hover:bg-ocean group-hover:text-white">
+              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-ocean/50 font-dot text-lg font-black text-teal transition-colors duration-300 group-hover:bg-ocean group-hover:text-white">
                 {String(i + 1).padStart(2, "0")}
               </span>
               <div>

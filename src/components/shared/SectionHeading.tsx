@@ -26,15 +26,15 @@ export function SectionHeading({
       {eyebrow && (
         <p
           className={clsx(
-            "mb-3 text-xs font-semibold uppercase tracking-[0.2em]",
-            light ? "text-teal" : "text-ocean"
+            "mb-3 font-mono text-xs font-semibold uppercase tracking-[0.2em]",
+            light ? "text-teal" : "text-teal"
           )}
         >
           {eyebrow}
         </p>
       )}
       <h2
-        className="text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl"
+        className="text-2xl font-bold leading-tight text-white sm:text-3xl md:text-4xl"
       >
         {title}
       </h2>

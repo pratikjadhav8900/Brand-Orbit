@@ -30,7 +30,7 @@ export default function ContactPage() {
 
           <Reveal delay={0.1} className="space-y-6">
             <div className="rounded-2xl border border-white/10 bg-surface p-7">
-              <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-ocean">
+              <h3 className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-teal">
                 Email
               </h3>
               <a href={`mailto:${siteConfig.contact.email}`} className="mt-3 block text-white">
@@ -38,7 +38,7 @@ export default function ContactPage() {
               </a>
             </div>
             <div className="rounded-2xl border border-white/10 bg-surface p-7">
-              <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-teal">
+              <h3 className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-teal">
                 WhatsApp
               </h3>
               <a href={whatsappHref} target="_blank" rel="noopener noreferrer" className="mt-3 block text-white">
@@ -46,7 +46,7 @@ export default function ContactPage() {
               </a>
             </div>
             <div className="rounded-2xl border border-white/10 bg-surface p-7">
-              <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-ocean">
+              <h3 className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-teal">
                 Location
               </h3>
               <p className="mt-3 text-white">{siteConfig.contact.location}</p>

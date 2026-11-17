@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Plus_Jakarta_Sans, Baloo_2 } from "next/font/google";
+import { Inter, Unbounded, JetBrains_Mono, Doto, Baloo_2 } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -12,8 +12,20 @@ const inter = Inter({
   display: "swap",
 });
 
-const jakarta = Plus_Jakarta_Sans({
-  variable: "--font-jakarta",
+const unbounded = Unbounded({
+  variable: "--font-unbounded",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains-mono",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const doto = Doto({
+  variable: "--font-doto",
   subsets: ["latin"],
   display: "swap",
 });
@@ -50,7 +62,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${jakarta.variable} ${baloo.variable} h-full antialiased`}
+      className={`${inter.variable} ${unbounded.variable} ${jetbrainsMono.variable} ${doto.variable} ${baloo.variable} dark h-full antialiased`}
     >
       <body className="flex min-h-full flex-col font-body">
         <Header />

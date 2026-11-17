@@ -28,7 +28,7 @@ export default function ServicesPage() {
               className="grid grid-cols-1 gap-6 rounded-2xl border border-white/10 bg-surface p-8 sm:grid-cols-[1fr_1.4fr] sm:items-center"
             >
               <div>
-                <span className="text-sm font-semibold text-ocean">{v.index}</span>
+                <span className="text-sm font-semibold text-teal">{v.index}</span>
                 <h2 className="mt-2 text-xl font-bold text-white">{v.name}</h2>
                 <Link
                   href={`/businesses/${v.slug}`}

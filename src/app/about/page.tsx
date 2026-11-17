@@ -46,7 +46,7 @@ export default function AboutPage() {
 
           <Reveal delay={0.1} className="space-y-6">
             <div className="rounded-2xl border border-white/10 bg-surface p-8">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ocean">
+              <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-teal">
                 Mission
               </p>
               <p className="mt-4 text-base leading-relaxed text-white">
@@ -56,7 +56,7 @@ export default function AboutPage() {
               </p>
             </div>
             <div className="rounded-2xl border border-white/10 bg-surface p-8">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-teal">
+              <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-teal">
                 Vision
               </p>
               <p className="mt-4 text-base leading-relaxed text-white">
@@ -72,19 +72,25 @@ export default function AboutPage() {
         <Container>
           <Reveal className="mx-auto max-w-3xl text-center">
             <h2 className="text-2xl font-bold text-white sm:text-3xl">Leadership</h2>
-            <div className="mt-10 flex flex-col items-center gap-4 rounded-2xl border border-white/10 bg-surface-alt p-10">
-              <div className="flex h-20 w-20 items-center justify-center rounded-full bg-navy text-2xl font-bold text-teal">
-                F
-              </div>
-              <p className="text-sm font-semibold uppercase tracking-wider text-ocean">
-                {siteConfig.founder.title}
-              </p>
-              <p className="max-w-xl text-sm leading-relaxed text-white/65">
-                Our founder started BrandOrbit Group to bring specialised
-                business capabilities together under one identity, and to build ventures
-                that grow alongside the businesses BrandOrbit serves. Additional
-                leadership and team profiles will be introduced here as the group grows.
-              </p>
+            <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-white/65">
+              BrandOrbit Group was started to bring specialised business capabilities together
+              under one identity, and to build ventures that grow alongside the businesses we serve.
+            </p>
+            <div className="mt-10 grid gap-6 sm:grid-cols-2">
+              {siteConfig.leadership.map((person) => (
+                <div
+                  key={person.name}
+                  className="flex flex-col items-center gap-4 rounded-2xl border border-white/10 bg-surface-alt p-10"
+                >
+                  <div className="flex h-20 w-20 items-center justify-center rounded-full bg-navy text-2xl font-bold text-teal">
+                    {person.name.charAt(0)}
+                  </div>
+                  <h3 className="text-lg font-semibold text-white">{person.name}</h3>
+                  <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-teal">
+                    {person.role}
+                  </p>
+                </div>
+              ))}
             </div>
           </Reveal>
         </Container>

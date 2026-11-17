@@ -43,7 +43,7 @@ export default async function VerticalPage(props: PageProps<"/businesses/[slug]"
           </Reveal>
 
           <Reveal delay={0.1} className="rounded-2xl border border-white/10 bg-surface p-8">
-            <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-ocean">
+            <h3 className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-teal">
               Capabilities
             </h3>
             <ul className="mt-5 space-y-3">

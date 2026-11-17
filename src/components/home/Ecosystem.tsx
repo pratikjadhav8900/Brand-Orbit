@@ -25,7 +25,7 @@ export function Ecosystem() {
                   <span
                     className={
                       v.accent === "ocean"
-                        ? "text-sm font-semibold text-ocean"
+                        ? "text-sm font-semibold text-teal"
                         : "text-sm font-semibold text-teal"
                     }
                   >

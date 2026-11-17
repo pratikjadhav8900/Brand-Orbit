@@ -28,10 +28,10 @@ export function About() {
       <Container>
         <div className="grid gap-16 lg:grid-cols-2 lg:gap-20">
           <Reveal>
-            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-ocean">
+            <p className="mb-3 font-mono text-xs font-semibold uppercase tracking-[0.2em] text-teal">
               About BrandOrbit
             </p>
-            <h2 className="text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl">
+            <h2 className="text-2xl font-bold leading-tight text-white sm:text-3xl">
               One Group. Multiple Possibilities.
             </h2>
             <p className="mt-5 max-w-xl text-base leading-relaxed text-white/70">

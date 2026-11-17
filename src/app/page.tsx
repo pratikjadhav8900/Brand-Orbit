@@ -1,3 +1,4 @@
+import MetroHero from "@/components/ui/scroll-locked-video-hero";
 import { Hero } from "@/components/home/Hero";
 import { About } from "@/components/home/About";
 import { Ecosystem } from "@/components/home/Ecosystem";
@@ -14,6 +15,13 @@ import { FinalCta } from "@/components/home/FinalCta";
 export default function Home() {
   return (
     <>
+      <MetroHero
+        title="Open the door to endless opportunities"
+        subtitle="BrandOrbit Group is a business consulting and growth partner, bringing strategy, technology and marketing expertise to help you build, scale and launch."
+        tagline="Expert consulting to turn your vision into growth."
+        scrollHint="SCROLL TO ENTER"
+        style={{ height: "calc(100dvh - 81px)" }}
+      />
       <Hero />
       <About />
       <Ecosystem />

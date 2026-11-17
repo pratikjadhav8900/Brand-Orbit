@@ -17,7 +17,7 @@ export function Newsletter() {
     <section className="bg-surface py-20 sm:py-24">
       <Container className="flex flex-col items-center gap-8 rounded-3xl bg-navy px-8 py-14 text-center sm:px-16">
         <Reveal>
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-teal">
+          <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-teal">
             Stay Updated
           </p>
           <h2 className="mt-3 text-2xl font-bold text-white sm:text-3xl">

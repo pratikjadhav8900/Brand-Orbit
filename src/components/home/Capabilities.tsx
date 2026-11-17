@@ -39,7 +39,7 @@ export function Capabilities() {
                 <div className="p-6">
                   <h3 className="font-bold text-white">{v.name}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-white/65">{v.tagline}</p>
-                  <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-ocean">
+                  <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-teal">
                     Learn more
                     <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">
                       →

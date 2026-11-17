@@ -59,7 +59,7 @@ export function Header() {
                 aria-current={active ? "page" : undefined}
                 className={clsx(
                   "text-sm font-medium tracking-wide transition-colors duration-200",
-                  active ? "text-ocean" : "text-white/75 hover:text-white"
+                  active ? "text-teal" : "text-white/75 hover:text-white"
                 )}
               >
                 {link.label}

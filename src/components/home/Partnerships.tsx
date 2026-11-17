@@ -9,10 +9,10 @@ export function Partnerships() {
     <section className="bg-gradient-to-br from-ocean to-navy py-24 sm:py-32">
       <Container>
         <Reveal className="mx-auto max-w-3xl text-center">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-white/80">
+          <p className="mb-3 font-mono text-xs font-semibold uppercase tracking-[0.2em] text-white/80">
             Partnerships
           </p>
-          <h2 className="text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl">
+          <h2 className="text-2xl font-bold leading-tight text-white sm:text-3xl md:text-4xl">
             Let&apos;s Create Something Bigger.
           </h2>
           <div className="mt-8 flex flex-wrap justify-center gap-3">

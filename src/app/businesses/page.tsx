@@ -30,12 +30,12 @@ export default function BusinessesPage() {
                 className="group rounded-2xl border border-white/10 bg-surface p-8 transition-colors duration-300 hover:border-ocean/40"
               >
                 <Link href={`/businesses/${v.slug}`} className="flex h-full flex-col">
-                  <span className="text-sm font-semibold text-ocean">{v.index}</span>
+                  <span className="text-sm font-semibold text-teal">{v.index}</span>
                   <h2 className="mt-3 text-2xl font-bold text-white">{v.name}</h2>
                   <p className="mt-3 text-base leading-relaxed text-white/70">
                     {v.description}
                   </p>
-                  <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-white transition-colors duration-300 group-hover:text-ocean">
+                  <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-white transition-colors duration-300 group-hover:text-teal">
                     Explore {v.shortName}
                     <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">
                       →

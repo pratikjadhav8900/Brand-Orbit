@@ -7,7 +7,7 @@ export function FinalCta() {
     <section className="bg-navy py-24 sm:py-32">
       <Container>
         <Reveal className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl md:text-5xl">
+          <h2 className="text-2xl font-bold leading-tight text-white sm:text-3xl md:text-4xl">
             Your Next Opportunity Starts Here.
           </h2>
           <p className="mt-6 text-base leading-relaxed text-white/70 sm:text-lg">

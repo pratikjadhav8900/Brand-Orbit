@@ -27,7 +27,7 @@ export default function InsightsPage() {
                     Unpublished draft
                   </span>
                 )}
-                <p className="mt-4 text-xs font-semibold uppercase tracking-wider text-ocean">
+                <p className="mt-4 text-xs font-semibold uppercase tracking-wider text-teal">
                   {article.category}
                 </p>
                 <h2 className="mt-2 text-lg font-bold leading-snug text-white">{article.title}</h2>

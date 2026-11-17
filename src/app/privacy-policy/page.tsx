@@ -33,7 +33,7 @@ export default function PrivacyPolicyPage() {
           <h2 className="mt-8 text-xl font-bold text-white">Contact</h2>
           <p className="mt-3 text-base leading-relaxed text-white/70">
             For questions about this policy, contact us at{" "}
-            <a href={`mailto:${siteConfig.contact.email}`} className="text-ocean">
+            <a href={`mailto:${siteConfig.contact.email}`} className="text-teal">
               {siteConfig.contact.email}
             </a>
             .

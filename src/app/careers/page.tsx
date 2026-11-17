@@ -24,7 +24,7 @@ export default function CareersPage() {
             <CareersForm />
           </Reveal>
           <Reveal delay={0.1} className="rounded-2xl border border-white/10 bg-surface p-7">
-            <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-ocean">
+            <h3 className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-teal">
               Open Roles
             </h3>
             <p className="mt-3 text-sm leading-relaxed text-white/70">
